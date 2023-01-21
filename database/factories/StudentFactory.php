@@ -17,7 +17,8 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name(),
+            'code' => '-J847JAG'
         ];
     }
 }

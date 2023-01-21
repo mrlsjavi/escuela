@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Student;
+use Illuminate\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
@@ -13,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return response()->json(StudentResource::collection($students), 200);
     }
 
     /**
