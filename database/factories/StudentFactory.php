@@ -20,5 +20,6 @@ class StudentFactory extends Factory
             'name' => fake()->name(),
             'code' => '-J847JAG'
         ];
+
     }
 }
