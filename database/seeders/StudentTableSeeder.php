@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Student;
 
 class StudentTableSeeder extends Seeder
 {
@@ -14,6 +15,6 @@ class StudentTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+         Student::factory()->count(15)->create();
     }
 }

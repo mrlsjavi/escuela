@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conducts', function (Blueprint $table) {
+        Schema::create('behavior', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('behaviortypes_id')->constrained('behavior_types');
+            $table->foreignId('asignment_id')->constrained('asignments');
+            $table->foreignId('qualifications_id')->constrained('qualifications');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conducts');
+        Schema::dropIfExists('behavior');
     }
 };

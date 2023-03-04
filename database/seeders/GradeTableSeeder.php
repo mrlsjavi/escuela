@@ -14,6 +14,6 @@ class GradeTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }

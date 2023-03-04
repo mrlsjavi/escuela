@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Absen extends Model
 {
     use HasFactory;
+
+
+    public function asignment(){
+        return $this->BelongsTo(Asignment::class);
+    }
 }

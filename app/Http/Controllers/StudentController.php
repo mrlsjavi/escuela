@@ -15,8 +15,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(15);
-        return response()->json(StudentResource::collection($students), 200);
+        $students = Student::paginate(5);
+        //return response()->json(StudentResource::collection($students), 200);
+        return response()->json($students, 200);
     }
 
     /**
@@ -37,7 +38,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student;
+        $student->name = $request->get('nombre');
+        $student->code = $request->get('codigo');
+        $student->save();
+
+        return response()->json($student, 201);
     }
 
     /**

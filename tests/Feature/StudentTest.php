@@ -39,7 +39,7 @@ class StudentTest extends TestCase
 
          $response = $this->json('get','api/alumnos')
             ->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJsonStructure(data =>[
                [    "id",
                     "nombre",
                     "codigo"
@@ -53,8 +53,8 @@ class StudentTest extends TestCase
     public function test_SaveStudent(){
         $student = [
 
-             'name' => "javier",
-             'code' => "-J123XYZ"
+             'nombre' => "javier",
+             'codigo' => "-J123XYZ"
         ];
 
 
@@ -71,6 +71,7 @@ class StudentTest extends TestCase
                 'code' => '-J123XYZ',
             ]);
     }
+
 
 
 

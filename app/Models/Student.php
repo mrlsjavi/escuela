@@ -11,4 +11,9 @@ class Student extends Model
     protected $fillable = [
         'name', 'code',
     ];
+
+
+    public function asignments(){
+        return $this->hasMany(Asignment::class);
+    }
 }

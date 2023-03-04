@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cycle;
+use App\Models\Grade;
+use App\Models\Student;
+use App\Models\Pensum;
+use App\Models\Absen;
+use App\Models\Asignment;
 
 class AsignmentController extends Controller
 {
@@ -24,6 +30,11 @@ class AsignmentController extends Controller
     public function create()
     {
         //
+        $ciclos = ciclo::orderBy('id','Desc')->get();
+        $grados = grado::all();
+        $alumno = alumno::find($id);
+
+        return response()->json($student, 201);
     }
 
     /**
@@ -34,7 +45,81 @@ class AsignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pensum = Pensum::where('grado_id', $request->get('grado'))->get();
+      
+      // dd($cursos); 
+      DB::transaction(function() use($request){
+        $as = new Asignment;
+          $as->ciclo_id = $request->get('ciclo');
+          $as->grado_id = $request->get('grado');
+          $as->alumno_id = $request->get('alumno');
+          $as->save();
+
+          
+
+          collect(Pensum::where('grado_id', $request->get('grado'))->get())->map(function($p) use($as){
+            //dd($as->id);
+            //return $p->curso_id;
+                 $punteo = new Score;
+                 $punteo->curso_id = $p->curso_id;
+                 $punteo->asignacion_id = $as->id;
+                 $punteo->nota1 = 0;
+                 $punteo->nota2 = 0;
+                 $punteo->nota3 = 0;
+                 $punteo->nota4 = 0;
+                 $punteo->save();
+          });
+
+          //ausencias y reportes
+          $aus = new Absen;
+          $aus->asignacion_id = $as->id;
+          $aus->ausencias = 0;
+          $aus->save();
+
+          $reporte = new Report;
+          $reporte->asignacion_id = $as->id;
+          $reporte->reportes = 0;
+          $reporte->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 1;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 2;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 3;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 4;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 5;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+          $con = new Behavior;
+          $con->formativa_id = 6;
+          $con->asignacion_id = $as->id;
+          $con->calificacion = "Excelente";
+          $con->save();
+
+
+      });
+        return response()->json("success", 201);
     }
 
     /**
