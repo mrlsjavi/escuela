@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asignment_id')->constrained('asignments');;
-            $table->integer('reportes');
+            $table->integer('reports');
             $table->timestamps();
         });
     }

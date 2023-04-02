@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('pensums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('grade_id')->constrained('grade');
-            $table->foreignId('course_id')->constrained('course');;
+            $table->foreignId('grade_id')->constrained('grades');
+            $table->foreignId('course_id')->constrained('courses');
+            $table->integer('orden');
             $table->timestamps();
         });
     }

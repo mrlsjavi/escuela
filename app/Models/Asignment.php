@@ -17,7 +17,7 @@ class Asignment extends Model
         return $this->BelongsTo(Grade::class);
     }
     public function student(){
-        return $this->BelongsTo(Students::class);
+        return $this->BelongsTo(Student::class);
     }
 
     public function absen(){

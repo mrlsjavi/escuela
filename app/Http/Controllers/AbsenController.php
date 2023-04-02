@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Absen;
 
 class AbsenController extends Controller
 {
@@ -68,7 +69,14 @@ class AbsenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ausencia = Absen::find($id);
+        //dd($ausencia);
+
+
+          $ausencia->absense = $request->get('faltas');
+          //$as->asignacion_id = $asignacion;
+          
+          $ausencia->save();
     }
 
     /**

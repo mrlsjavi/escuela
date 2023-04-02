@@ -21,3 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('alumnos', 'StudentController@index');
 Route::post('alumnos', 'StudentController@store');
+
+Route::post('asignar', 'AsignmentController@store');
+Route::get('asignar/{asignment}/notas', 'ScoreController@edit');
+Route::get('asignados', 'AsignmentController@index');
+
+Route::Patch('punteos', 'ScoreController@update');
+
+Route::get('ciclos', 'CycleController@index');
+Route::get('grados', 'GradeController@index');

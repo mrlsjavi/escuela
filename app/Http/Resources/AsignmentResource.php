@@ -14,6 +14,11 @@ class AsignmentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'ciclo' => CycleResource::make($this->cycle)->name,
+            'grado' => GradeResource::make($this->grade)->name,
+            'student' => StudentResource::make($this->student)->name,
+        ];
     }
 }

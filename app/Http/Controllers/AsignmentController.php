@@ -9,6 +9,10 @@ use App\Models\Student;
 use App\Models\Pensum;
 use App\Models\Absen;
 use App\Models\Asignment;
+use App\Models\Score;
+use App\Models\Report;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\AsignmentResource;
 
 class AsignmentController extends Controller
 {
@@ -19,7 +23,18 @@ class AsignmentController extends Controller
      */
     public function index()
     {
-        //
+        $Asignaciones = Asignment::all();
+        return response()->json(AsignmentResource::collection($Asignaciones), 200);
+
+
+        /*
+            Ingreso de notas por grado y clase 
+            listado de grados y clases - asignado al maestro 
+
+            en lugar del listado de materias seria el ilstado de alumnos con las 4 notas
+            y las guardo igual (opcion de disable)
+
+        */
     }
 
     /**
@@ -33,7 +48,7 @@ class AsignmentController extends Controller
         $ciclos = ciclo::orderBy('id','Desc')->get();
         $grados = grado::all();
         $alumno = alumno::find($id);
-
+//tengo que devolver varios
         return response()->json($student, 201);
     }
 
@@ -45,24 +60,25 @@ class AsignmentController extends Controller
      */
     public function store(Request $request)
     {
-        $pensum = Pensum::where('grado_id', $request->get('grado'))->get();
+        $pensum = Pensum::where('grade_id', $request->get('grado'))->get();
       
       // dd($cursos); 
       DB::transaction(function() use($request){
         $as = new Asignment;
-          $as->ciclo_id = $request->get('ciclo');
-          $as->grado_id = $request->get('grado');
-          $as->alumno_id = $request->get('alumno');
+          $as->cycle_id = $request->get('ciclo');
+          $as->grade_id = $request->get('grado');
+          $as->student_id = $request->get('alumno');
           $as->save();
 
           
 
-          collect(Pensum::where('grado_id', $request->get('grado'))->get())->map(function($p) use($as){
+          collect(Pensum::where('grade_id', $request->get('grado'))->get())->map(function($p) use($as){
             //dd($as->id);
+            //dd($p);
             //return $p->curso_id;
                  $punteo = new Score;
-                 $punteo->curso_id = $p->curso_id;
-                 $punteo->asignacion_id = $as->id;
+                 $punteo->course_id = $p->course_id;
+                 $punteo->asignment_id = $as->id;
                  $punteo->nota1 = 0;
                  $punteo->nota2 = 0;
                  $punteo->nota3 = 0;
@@ -72,16 +88,16 @@ class AsignmentController extends Controller
 
           //ausencias y reportes
           $aus = new Absen;
-          $aus->asignacion_id = $as->id;
-          $aus->ausencias = 0;
+          $aus->asignment_id = $as->id;
+          $aus->absense = 0;
           $aus->save();
 
           $reporte = new Report;
-          $reporte->asignacion_id = $as->id;
-          $reporte->reportes = 0;
+          $reporte->asignment_id = $as->id;
+          $reporte->reports = 0;
           $reporte->save();
 
-          $con = new Behavior;
+          /*$con = new Behavior;
           $con->formativa_id = 1;
           $con->asignacion_id = $as->id;
           $con->calificacion = "Excelente";
@@ -115,7 +131,7 @@ class AsignmentController extends Controller
           $con->formativa_id = 6;
           $con->asignacion_id = $as->id;
           $con->calificacion = "Excelente";
-          $con->save();
+          $con->save();*/
 
 
       });

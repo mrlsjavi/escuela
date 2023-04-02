@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Report;
 
 class ReportController extends Controller
 {
@@ -68,7 +69,14 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reportes = Report::find($id);
+        //dd($ausencia);
+
+
+          $reportes->reports = $request->get('reportes');
+          //$as->asignacion_id = $asignacion;
+          
+          $reportes->save();
     }
 
     /**

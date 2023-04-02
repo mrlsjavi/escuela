@@ -14,6 +14,6 @@ class BehaviorTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        //aca asigno: asignacion, behavior type y qualification
     }
 }

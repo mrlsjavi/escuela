@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cycle;
+use App\Http\Resources\CycleResource;
 
 class CycleController extends Controller
 {
@@ -13,7 +15,8 @@ class CycleController extends Controller
      */
     public function index()
     {
-        //
+        $ciclos = Cycle::all();
+        return response()->json(CycleResource::collection($ciclos), 200);
     }
 
     /**

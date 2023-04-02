@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Grade;
+use App\Http\Resources\GradeResource;
 
 class GradeController extends Controller
 {
@@ -13,7 +15,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+        $grados = Grade::all();
+        return response()->json(GradeResource::collection($grados), 200);
     }
 
     /**

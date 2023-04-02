@@ -15,9 +15,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(5);
-        //return response()->json(StudentResource::collection($students), 200);
-        return response()->json($students, 200);
+       // $students = Student::paginate(5);
+        $students = Student::all();
+        return response()->json(StudentResource::collection($students), 200);
+        //return response()->json($students, 200);
     }
 
     /**
